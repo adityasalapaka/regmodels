@@ -1,0 +1,20 @@
+---
+title: "Regression Models, Course Project"
+author: "Aditya Salapaka"
+date: "Tuesday 28 April 2015"
+output: html_document
+---
+
+# Reproducible Research, Course Project
+The objective is to explore the relationship between a set of variables and MPG,
+and attempt to answer the following questions:
+
+* “Is an automatic or manual transmission better for MPG?”
+
+* "Quantify the MPG difference between automatic and manual transmissions"
+
+## About The Dataset
+The `mtcars` dataset was extracted from the 1975 Motor Trend US magazine, and
+comprises fuel consumption and ten aspects of automobile design and performance
+for 32 automobiles (1973-74 models).
+
