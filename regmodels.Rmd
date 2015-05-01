@@ -18,3 +18,43 @@ The `mtcars` dataset was extracted from the 1975 Motor Trend US magazine, and
 comprises fuel consumption and ten aspects of automobile design and performance
 for 32 automobiles (1973-74 models).
 
+## Data Transformation
+
+The dataset was loaded into R, and the appropriate varibles were factored.
+
+```{r}
+data(mtcars)
+mtcars$cyl <- factor(mtcars$cyl)
+mtcars$vs <- factor(mtcars$vs)
+mtcars$am <- factor(mtcars$am, labels = c("Automatic", "Manual"))
+mtcars$gear <- factor(mtcars$gear)
+mtcars$carb <- factor(mtcars$carb)
+```
+
+## Exploratory Data Analysis
+
+Following is a pairs plot of the `mtcars` dataset.
+```{r cache = TRUE}
+require("GGally")
+ggpairs(mtcars)
+```
+
+The pairs plot shows that many variables have a correlation with mpg. 
+
+Following is a boxplot between `mpg` and `am`.
+
+```{r}
+g <- ggplot(mtcars, aes(am, mpg))
+g <- g + geom_boxplot() + xlab("Transmission Type") + ylab("MPG") + 
+        geom_jitter()
+print(g)
+```
+
+It is clear that manual transmission corresponds to an increase in mpg. This 
+will be proven with a suitable regression model.
+
+## Regression Analysis
+Since it is not known whcih variables have a significant impact, a specific 
+model cannot be chosen immediately. For this, a base model correlating all 
+variables with `mpg` will be created, and the `step` function will iterate 
+multiple regression models to choose the best one.
