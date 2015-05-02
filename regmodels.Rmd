@@ -36,7 +36,7 @@ mtcars$carb <- factor(mtcars$carb)
 Following is a pairs plot of the `mtcars` dataset.
 ```{r cache = TRUE}
 require("GGally")
-ggpairs(mtcars)
+ggpairs(mtcars, axisLabels = "internal")
 ```
 
 The pairs plot shows that many variables have a correlation with mpg. 
@@ -44,6 +44,7 @@ The pairs plot shows that many variables have a correlation with mpg.
 Following is a boxplot between `mpg` and `am`.
 
 ```{r}
+require("ggplot2")
 g <- ggplot(mtcars, aes(am, mpg))
 g <- g + geom_boxplot() + xlab("Transmission Type") + ylab("MPG") + 
         geom_jitter()
@@ -58,3 +59,28 @@ Since it is not known whcih variables have a significant impact, a specific
 model cannot be chosen immediately. For this, a base model correlating all 
 variables with `mpg` will be created, and the `step` function will iterate 
 multiple regression models to choose the best one.
+
+```{r results='hide'}
+initial <- lm(mpg ~ ., data = mtcars)
+best <- step(initial, direction = "both")
+```
+
+```{r}
+summary(best)
+```
+
+
+The best model has `mpg` depending on `cyl`, `hp`, `wt` and `am`. It has an 
+adjusted R-squared value of `r summary(best)$adj.r.squared`, which is the highest achievable value. 
+
+To check that variables other than `am` also contribute to a change in `mpg`,
+the `anova` test can be run. The null hypthesis is that `cyl`, `hp`, `wt` and
+`am` do not affect `mpg`.
+
+```{r}
+base <- lm(mpg ~ am, data = mtcars)
+anova(base, best)
+```
+
+A p-value of 1.69e-08 helps us reject the null hypothesis.
+

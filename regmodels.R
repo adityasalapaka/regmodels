@@ -16,3 +16,6 @@ g <- ggplot(mtcars, aes(am, mpg))
 g <- g + geom_boxplot() + xlab("Transmission Type") + ylab("MPG") + 
         geom_jitter()
 print(g)
+
+initial <- lm(mpg ~ ., data = mtcars)
+best <- step(initial, direction = "both")
