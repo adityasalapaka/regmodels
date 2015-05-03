@@ -27,7 +27,7 @@ for 32 automobiles (1973-74 models).
 
 ## Data Transformation
 
-The dataset was loaded into R, and the appropriate varibles were factored.
+The dataset was loaded into R, and the appropriate variables were factored.
 
 ```{r}
 data(mtcars)
@@ -63,7 +63,7 @@ It is clear that manual transmission corresponds to an increase in mpg. This
 will be proven with a suitable regression model.
 
 ## Regression Analysis
-Since it is not known whcih variables have a significant impact, a specific 
+Since it is not known which variables have a significant impact, a specific 
 model cannot be chosen immediately. For this, a base model correlating all 
 variables with `mpg` will be created, and the `step` function will iterate 
 multiple regression models to choose the best one.
@@ -98,7 +98,7 @@ par(mfrow = c(2,2))
 plot(best)
 ```
 
-The residuals vs plotted plot is very scattered, indicative of independence.
+The residuals vs fitted plot is very scattered, indicative of independence.
 The normal Q-Q plot is a straight line, indicative of the normality of the data.
 
 ### Outlier Analysis
