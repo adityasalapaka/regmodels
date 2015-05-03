@@ -34,7 +34,7 @@ mtcars$carb <- factor(mtcars$carb)
 ## Exploratory Data Analysis
 
 Following is a pairs plot of the `mtcars` dataset.
-```{r cache = TRUE}
+```{r cache=TRUE, echo=FALSE}
 require("GGally")
 ggpairs(mtcars, axisLabels = "internal")
 ```
@@ -69,12 +69,11 @@ best <- step(initial, direction = "both")
 summary(best)
 ```
 
-
 The best model has `mpg` depending on `cyl`, `hp`, `wt` and `am`. It has an 
 adjusted R-squared value of `r summary(best)$adj.r.squared`, which is the highest achievable value. 
 
 To check that variables other than `am` also contribute to a change in `mpg`,
-the `anova` test can be run. The null hypthesis is that `cyl`, `hp`, `wt` and
+the `anova` test can be run. The null hypothesis is that `cyl`, `hp`, `wt` and
 `am` do not affect `mpg`.
 
 ```{r}
@@ -82,5 +81,37 @@ base <- lm(mpg ~ am, data = mtcars)
 anova(base, best)
 ```
 
-A p-value of 1.69e-08 helps us reject the null hypothesis.
+A p-value of 1.69e-08 helps rejects the null hypothesis.
 
+## Residual Plot and Diagnostics
+Following is a plot of the best model.
+```{r echo=FALSE}
+par(mfrow = c(2,2))
+plot(best)
+```
+
+The residuals vs plotted plot is very scattered, indicative of independence.
+The normal Q-Q plot is a straight line, indicative of the normality of the data.
+
+### Outlier Analysis
+```{r}
+tail(sort(hatvalues(best)), 3)
+tail(sort(dfbetas(best)[,6]), 3)
+```
+
+The results are the same as seen in the plot, which verifies the analysis.
+
+## Statistical Inference
+Assuming normality of the data, t-test is performed, with the null hypothesis 
+that automatic or manual transmission have no effect on `mpg`.
+
+```{r}
+t.test(mpg ~ am, data = mtcars)
+```
+
+A p-value of `r t.test(mpg ~ am, data = mtcars)$p.value` helps in rejecting the
+null hypothesis. The difference in `mpg` based on transmission is as follows.
+
+```{r echo=FALSE}
+t.test(mpg ~ am, data = mtcars)$estimate
+```

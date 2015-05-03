@@ -8,7 +8,7 @@ str(mtcars)
 
 #pairs(mtcars)
 library("GGally")
-ggpairs(mtcars, axisLabels = "internal")
+ggpairs(mtcars, axisLabels = "internal", alpha = 0.8)
 
 library("ggplot2")
 
@@ -19,3 +19,15 @@ print(g)
 
 initial <- lm(mpg ~ ., data = mtcars)
 best <- step(initial, direction = "both")
+
+plot(best)
+
+hatvalues(best)
+sort(dfbetas(best))
+tail(sort(dfbetas(best)[,6]), 3)
+
+t.test(mpg ~ am, data = mtcars)$p.value
+
+plot(mpg ~ am, data = mtcars)
+
+shapiro.test(mtcars)
