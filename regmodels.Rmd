@@ -13,6 +13,13 @@ and attempt to answer the following questions:
 
 * "Quantify the MPG difference between automatic and manual transmissions"
 
+## Executive Summmary
+After some basic exploratory analyses, a regression model was chosen which 
+quantified the effect of various factors in `mpg`. From statistical and 
+regression analysis, the inference was that manual transmission is better for MPG, 
+considering the interaction of other variables such as `cyl`, `wt` and `hp`, 
+which significantly affect the MPG.
+
 ## About The Dataset
 The `mtcars` dataset was extracted from the 1975 Motor Trend US magazine, and
 comprises fuel consumption and ten aspects of automobile design and performance
@@ -34,6 +41,7 @@ mtcars$carb <- factor(mtcars$carb)
 ## Exploratory Data Analysis
 
 Following is a pairs plot of the `mtcars` dataset.
+
 ```{r cache=TRUE, echo=FALSE}
 require("GGally")
 ggpairs(mtcars, axisLabels = "internal")
@@ -115,3 +123,18 @@ null hypothesis. The difference in `mpg` based on transmission is as follows.
 ```{r echo=FALSE}
 t.test(mpg ~ am, data = mtcars)$estimate
 ```
+## Conclusion
+The objective was to answer two questions:
+
+### “Is an automatic or manual transmission better for MPG?”
+**Manual Transmission is better for MPG.** The boxplot and t.test show that 
+automatic transmission gives an `mpg` of 
+`r t.test(mpg ~ am, data = mtcars)$estimate[1]`, while manual transmission gives
+an `mpg` of `r t.test(mpg ~ am, data = mtcars)$estimate[2]`. 
+
+### "Quantify the MPG difference between automatic and manual transmissions"
+
+Based on the regression model obtained, it can be concluded that:
+
+* `mpg` increases by `r best$coefficients[6]` in Manual Transmission, when 
+considering the effect of `cyl`, `hp` and `wt`.
