@@ -5,7 +5,7 @@ date: "Tuesday 28 April 2015"
 output: html_document
 ---
 
-# Reproducible Research, Course Project
+# Regression Models, Course Project
 The objective is to explore the relationship between a set of variables and MPG,
 and attempt to answer the following questions:
 
